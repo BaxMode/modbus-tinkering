@@ -1,2 +1,2 @@
-# modbus-tinkering
-Hands-on CLI tools for quick setup, rapid testing, and tinkering with Modbus devices
+# Modbus Tinkering
+Hands-on CLI tools for quick and easy setup, rapid testing, and experimenting/tinkering with Modbus devices
