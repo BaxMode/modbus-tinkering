@@ -355,13 +355,13 @@ try:
 
         print("3. Change register setup")
         print("4. Show script run arguments for instant register setup at next script start")
-        print("5. Quit")
+        print("5. Quit (or 'q')")
         print("-"*40)
 
         try:
             choice = input("Enter choice (1-5): ").strip()
 
-            if choice != '1' and choice != '2' and choice != '3' and choice != '4' and choice != '5':
+            if choice != '1' and choice != '2' and choice != '3' and choice != '4' and choice != '5' and choice != 'q':
                 print('Not a valid operation, try again!')
                 continue
 
@@ -369,7 +369,7 @@ try:
                 explane_arguments()
                 continue
 
-            if choice == '5':
+            if choice == '5' or choice == 'q':
                 break
 
             print(f' ')
@@ -410,14 +410,7 @@ try:
                 print("\033[2J\033[H", end="")  # Clear screen and move cursor to top
                 loop_count += 1
 
-                # Check if user pressed a key to break out
-                if msvcrt.kbhit():
-                    key = msvcrt.getch()
-                    if key == b'q' or key == b'Q' or key == b'\x1b' or key == b' ':  # 'q' or ESC
-                        print("\n" + "="*40)
-                        print("Exiting continuous operation...")
-                        print("="*40)
-                        break
+
 
 
                 print(f' ')
@@ -540,7 +533,18 @@ try:
                 if choice == '1':
                     break
                 elif choice == '2':
-                    time.sleep(interval)
+                    start_interval = time.time()
+                    while time.time() - start_interval < interval:
+                        # Check if user pressed a key to break out
+                        if msvcrt.kbhit():
+                            key = msvcrt.getch()
+                            if key == b'q' or key == b'Q' or key == b'\x1b' or key == b' ':  # 'q' or ESC
+                                print("\n" + "="*40)
+                                print("Exiting continuous operation...")
+                                print("="*40)
+                                break
+                        time.sleep(0.1)
+
                     print("\033[2J\033[H", end="")  # Clear screen and move cursor to top
 
         except Exception as e:
